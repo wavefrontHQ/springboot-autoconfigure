@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 
 /**
  * Advanced configuration properties for Wavefront.
@@ -125,6 +126,8 @@ public class WavefrontProperties {
 
   public static class Tracing {
 
+    private boolean enabled;
+
     private final Opentracing opentracing = new Opentracing();
 
     /**
@@ -137,12 +140,22 @@ public class WavefrontProperties {
       return this.opentracing;
     }
 
+    @DeprecatedConfigurationProperty(reason = "This feature is migrated to Spring Cloud Sleuth", replacement = "spring.sleuth.wavefront.red-metrics-custom-tag-keys")
     public Set<String> getRedMetricsCustomTagKeys() {
       return this.redMetricsCustomTagKeys;
     }
 
     public void setRedMetricsCustomTagKeys(Set<String> redMetricsCustomTagKeys) {
       this.redMetricsCustomTagKeys = redMetricsCustomTagKeys;
+    }
+
+    @DeprecatedConfigurationProperty(reason = "This feature is migrated to Spring Cloud Sleuth", replacement = "spring.sleuth.wavefront.enabled")
+    public boolean isEnabled() {
+      return this.enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+      this.enabled = enabled;
     }
 
     /**

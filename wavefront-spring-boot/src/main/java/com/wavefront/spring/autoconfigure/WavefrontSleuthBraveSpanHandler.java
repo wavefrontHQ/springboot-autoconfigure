@@ -7,6 +7,7 @@ import brave.handler.MutableSpan;
 import brave.handler.SpanHandler;
 import brave.propagation.TraceContext;
 
+import org.springframework.cloud.sleuth.autoconfig.wavefront.WavefrontSleuthSpanHandler;
 import org.springframework.cloud.sleuth.brave.bridge.BraveFinishedSpan;
 import org.springframework.cloud.sleuth.brave.bridge.BraveTraceContext;
 

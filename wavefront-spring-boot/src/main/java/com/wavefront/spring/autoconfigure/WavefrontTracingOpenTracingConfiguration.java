@@ -1,6 +1,5 @@
 package com.wavefront.spring.autoconfigure;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,18 +22,19 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.PropertyMapper;
+import org.springframework.cloud.sleuth.autoconfig.wavefront.WavefrontTracingCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * A fallback configuration for OpenTracing if Spring Cloud Sleuth is not available.
+ * A configuration for OpenTracing.
  *
  * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ Reporter.class, Tracer.class })
 @ConditionalOnBean(WavefrontSender.class)
-@ConditionalOnMissingBean(name = WavefrontTracingSleuthConfiguration.BEAN_NAME)
+@ConditionalOnMissingBean(WavefrontTracingCustomizer.class)
 class WavefrontTracingOpenTracingConfiguration {
 
   @Bean(destroyMethod = "flush")
